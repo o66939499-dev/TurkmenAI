@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TurkmenAI — AI-powered multilingual language identification.">
+    <title>TurkmenAI | Language Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <a class="brand" href="/">Turkmen<span>AI</span></a>
+    <span class="version">MACHINE LEARNING · V1.0</span>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <div class="eyebrow">LOW-RESOURCE LANGUAGE INTELLIGENCE</div>
+        <h1>Understand the <span>language.</span></h1>
+        <p>
+            An AI system designed to identify Turkmen and four
+            other languages using machine learning.
+        </p>
+    </section>
+
+    <section class="analyzer">
+        <div class="section-heading">
+            <div>
+                <h2>Language Analyzer</h2>
+                <p>Enter a sentence to identify its language.</p>
+            </div>
+            <span class="live"><i></i> MODEL READY</span>
+        </div>
+
+        <label for="textInput">YOUR TEXT</label>
+        <textarea
+            id="textInput"
+            maxlength="5000"
+            placeholder="Write or paste your text here..."
+        ></textarea>
+
+        <div class="input-footer">
+            <span id="charCount">0 / 5000</span>
+            <button id="analyzeBtn">Analyze text <span>→</span></button>
+        </div>
+
+        <div id="errorBox" class="error hidden"></div>
+
+        <section id="result" class="result hidden">
+            <div class="result-top">
+                <span class="result-label">DETECTION RESULT</span>
+                <span id="statusBadge" class="status"></span>
+            </div>
+
+            <h2 id="languageResult">—</h2>
+
+            <div class="confidence-row">
+                <span>Model confidence</span>
+                <strong id="confidenceValue">0%</strong>
+            </div>
+
+            <div class="progress">
+                <div id="confidenceBar"></div>
+            </div>
+
+            <p id="statusText"></p>
+        </section>
+    </section>
+
+    <section class="languages">
+        <h3>Supported languages</h3>
+        <div class="language-list">
+            <span>Türkmen</span>
+            <span>Türkçe</span>
+            <span>Azərbaycanca</span>
+            <span>English</span>
+            <span>Русский</span>
+        </div>
+    </section>
+
+    <p class="privacy-note">
+        Your text is processed by the model on this server.
+        Do not enter passwords or sensitive personal information.
+    </p>
+</main>
+
+<footer>
+    <span>TurkmenAI — Low-Resource Language Intelligence System</span>
+    <span>Research prototype · Version 1.0</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
