@@ -1,95 +1,257 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TurkmenAI — AI-powered multilingual language identification.">
-    <title>TurkmenAI | Language Intelligence</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d19">
+  <meta name="description" content="TurkmenAI — AI-powered multilingual language identification platform.">
+  <title>TurkmenAI | Language Intelligence</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/script.js" defer></script>
 </head>
+
 <body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-<header class="header">
-    <a class="brand" href="/">Turkmen<span>AI</span></a>
-    <span class="version">MACHINE LEARNING · V1.0</span>
-</header>
+  <header class="navbar">
+    <a class="brand" href="/">
+      <span class="brand-icon">T</span>
+      <span>Turkmen<span class="brand-accent">AI</span></span>
+    </a>
 
-<main class="container">
+    <div class="nav-actions">
+      <select id="languageSelect" aria-label="Interface language">
+        <option value="tk">Türkmençe</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="tr">Türkçe</option>
+        <option value="az">Azərbaycanca</option>
+      </select>
+
+      <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+        <span id="themeIcon">☀</span>
+      </button>
+
+      <a class="github-link"
+         href="https://github.com/o66939499-dev/TurkmenAI"
+         target="_blank" rel="noopener noreferrer">
+        GitHub ↗
+      </a>
+    </div>
+  </header>
+
+  <main class="main-container">
+
     <section class="hero">
-        <div class="eyebrow">LOW-RESOURCE LANGUAGE INTELLIGENCE</div>
-        <h1>Understand the <span>language.</span></h1>
-        <p>
-            An AI system designed to identify Turkmen and four
-            other languages using machine learning.
+      <div class="eyebrow">
+        <span class="pulse-dot"></span>
+        <span data-i18n="eyebrow">MULTILINGUAL AI INTELLIGENCE</span>
+      </div>
+
+      <h1>
+        <span data-i18n="hero1">Language is your</span>
+        <span class="gradient-text" data-i18n="hero2">identity.</span>
+      </h1>
+
+      <p class="hero-description" data-i18n="heroDescription">
+        Intelligent language identification powered by machine learning,
+        with a special focus on the Turkmen language.
+      </p>
+
+      <div class="hero-tags">
+        <span>✦ Machine Learning</span>
+        <span>✦ NLP</span>
+        <span>✦ Python AI</span>
+      </div>
+    </section>
+
+    <section class="analyzer-card">
+
+      <div class="card-heading">
+        <div>
+          <div class="section-kicker" data-i18n="workspace">AI WORKSPACE</div>
+          <h2 data-i18n="analyzerTitle">Language Analyzer</h2>
+          <p data-i18n="analyzerDescription">
+            Enter your text and let TurkmenAI identify its language.
+          </p>
+        </div>
+
+        <div class="model-status">
+          <span class="status-dot"></span>
+          <span data-i18n="modelReady">MODEL READY</span>
+        </div>
+      </div>
+
+      <div class="input-heading">
+        <label for="textInput" data-i18n="inputLabel">
+          YOUR TEXT
+        </label>
+        <span class="input-hint" data-i18n="inputHint">
+          Maximum 5,000 characters
+        </span>
+      </div>
+
+      <textarea
+        id="textInput"
+        maxlength="5000"
+        placeholder="Salam! TürkmenAI bilen tanyş boluň..."
+        data-i18n-placeholder="placeholder"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="input-bottom">
+        <span id="charCount">0 / 5000</span>
+
+        <button id="clearBtn" class="clear-button" type="button"
+                data-i18n="clear">
+          Clear
+        </button>
+      </div>
+
+      <div class="analyze-area">
+        <button id="analyzeBtn" class="analyze-button" type="button">
+          <span id="buttonText" data-i18n="analyze">
+            Analyze language
+          </span>
+          <span class="button-arrow">→</span>
+        </button>
+
+        <p class="keyboard-hint" data-i18n="keyboard">
+          Ctrl + Enter to analyze
         </p>
-    </section>
+      </div>
 
-    <section class="analyzer">
-        <div class="section-heading">
-            <div>
-                <h2>Language Analyzer</h2>
-                <p>Enter a sentence to identify its language.</p>
+      <div id="errorBox" class="message-box error-box hidden"
+           role="alert"></div>
+
+      <section id="result" class="result-panel hidden"
+               aria-live="polite">
+
+        <div class="result-heading">
+          <div>
+            <div class="section-kicker" data-i18n="resultLabel">
+              ANALYSIS RESULT
             </div>
-            <span class="live"><i></i> MODEL READY</span>
+            <h3 data-i18n="detectedLanguage">Detected language</h3>
+          </div>
+
+          <span id="statusBadge" class="result-badge">
+            HIGH CONFIDENCE
+          </span>
         </div>
 
-        <label for="textInput">YOUR TEXT</label>
-        <textarea
-            id="textInput"
-            maxlength="5000"
-            placeholder="Write or paste your text here..."
-        ></textarea>
-
-        <div class="input-footer">
-            <span id="charCount">0 / 5000</span>
-            <button id="analyzeBtn">Analyze text <span>→</span></button>
+        <div class="detected-language">
+          <div class="language-symbol" id="languageSymbol">AI</div>
+          <div>
+            <h2 id="languageResult">Turkmen</h2>
+            <p id="statusText">Analysis completed successfully.</p>
+          </div>
         </div>
 
-        <div id="errorBox" class="error hidden"></div>
+        <div class="confidence-section">
+          <div class="confidence-labels">
+            <span data-i18n="confidence">Model confidence</span>
+            <strong id="confidenceValue">0%</strong>
+          </div>
 
-        <section id="result" class="result hidden">
-            <div class="result-top">
-                <span class="result-label">DETECTION RESULT</span>
-                <span id="statusBadge" class="status"></span>
-            </div>
-
-            <h2 id="languageResult">—</h2>
-
-            <div class="confidence-row">
-                <span>Model confidence</span>
-                <strong id="confidenceValue">0%</strong>
-            </div>
-
-            <div class="progress">
-                <div id="confidenceBar"></div>
-            </div>
-
-            <p id="statusText"></p>
-        </section>
-    </section>
-
-    <section class="languages">
-        <h3>Supported languages</h3>
-        <div class="language-list">
-            <span>Türkmen</span>
-            <span>Türkçe</span>
-            <span>Azərbaycanca</span>
-            <span>English</span>
-            <span>Русский</span>
+          <div class="progress-track">
+            <div id="confidenceBar" class="progress-fill"></div>
+          </div>
         </div>
+
+        <div class="result-footer">
+          <span>✦ TurkmenAI Machine Learning</span>
+          <span id="resultTime"></span>
+        </div>
+      </section>
+
     </section>
 
-    <p class="privacy-note">
-        Your text is processed by the model on this server.
-        Do not enter passwords or sensitive personal information.
+    <section class="languages-section">
+      <div class="section-kicker" data-i18n="supported">
+        SUPPORTED LANGUAGES
+      </div>
+
+      <div class="language-grid">
+        <div class="language-item">
+          <span class="language-code">TK</span>
+          <span>Türkmen</span>
+        </div>
+
+        <div class="language-item">
+          <span class="language-code">TR</span>
+          <span>Türkçe</span>
+        </div>
+
+        <div class="language-item">
+          <span class="language-code">AZ</span>
+          <span>Azərbaycanca</span>
+        </div>
+
+        <div class="language-item">
+          <span class="language-code">EN</span>
+          <span>English</span>
+        </div>
+
+        <div class="language-item">
+          <span class="language-code">RU</span>
+          <span>Русский</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stat-card">
+        <span class="stat-number">5</span>
+        <span data-i18n="statLanguages">Languages</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-number">35K</span>
+        <span data-i18n="statSamples">Training samples</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-number">99%</span>
+        <span data-i18n="statTurkmen">Turkmen test accuracy*</span>
+      </div>
+    </section>
+
+    <p class="accuracy-note" data-i18n="accuracyNote">
+      *Reported evaluation result on the project's selected test dataset.
+      Real-world performance may differ.
     </p>
-</main>
 
-<footer>
-    <span>TurkmenAI — Low-Resource Language Intelligence System</span>
-    <span>Research prototype · Version 1.0</span>
-</footer>
+    <div class="privacy-note">
+      <span>ⓘ</span>
+      <p data-i18n="privacy">
+        Your text is sent to the TurkmenAI server for analysis.
+        Do not enter passwords or sensitive personal information.
+      </p>
+    </div>
 
-<script src="/static/script.js"></script>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      Turkmen<span class="brand-accent">AI</span>
+    </div>
+
+    <p data-i18n="footerText">
+      Building intelligent language technology for everyone.
+    </p>
+
+    <a href="https://github.com/o66939499-dev/TurkmenAI"
+       target="_blank" rel="noopener noreferrer">
+      Open-source project on GitHub ↗
+    </a>
+
+    <div class="copyright">
+      © 2026 TurkmenAI · Research Prototype
+    </div>
+  </footer>
+
 </body>
 </html>
